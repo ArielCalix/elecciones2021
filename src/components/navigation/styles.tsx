@@ -26,6 +26,7 @@ const appBarStyles = makeStyles((theme: Theme) =>
 const useStyles = makeStyles((theme) => createStyles({
     formControl: {
         margin: theme.spacing(1),
+        marginTop: theme.spacing(3),
         minWidth: 120,
     },
     selectEmpty: {

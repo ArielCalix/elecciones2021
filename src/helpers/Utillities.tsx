@@ -8,7 +8,7 @@ const api = axios.create(config);
 api.interceptors.request.use(
     async config => {
         const TOKEN = localStorage.getItem('USER_TOKEN')
-        config.headers = (TOKEN) ? { 'Authorization': `Bearer ${TOKEN}` } : { 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBY2FsaXgiLCJleHAiOjE2MzUyNjM2OTZ9.JkcMboLFcBhASwka9YrENqvJD9_a6_-BnVNCRo59kbs' };
+        config.headers = (TOKEN) ? { 'Authorization': `Bearer ${TOKEN}` } : { Message: 'No Authorized' };
         return config;
     },
     error => {
@@ -20,7 +20,7 @@ async function getData(props: IUtillities) {
         const datos = await api.get(props.url).then(datos => {
             return datos.data;
         }).catch(error => {
-            return {message: 'No se pudieron obtener los datos', error: error}
+            return { message: 'No se pudieron obtener los datos', error: error }
         });
         if (!isEmpty(datos.data)) {
             return datos.data;

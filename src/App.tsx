@@ -48,15 +48,15 @@ function App() {
       }
     }
   }
-  // const handleLogOut = () => {
-  //   LogOut();
-  //   setIsLogin(false)
-  // }
+  const handleLogOut = () => {
+    LogOut();
+    setIsLogin(false)
+  }
   return (
     <div className='App'>
       <ThemeProvider theme={theme}>
         {(cargando) ? <Cargando></Cargando> :
-          (isLogin) ? <Bar /> : <Login handleLogin={handleLogin} isLogin={errorLogin} />
+          (isLogin) ? <Bar handleLogOut={handleLogOut} /> : <Login handleLogin={handleLogin} isLogin={errorLogin} />
         }
       </ThemeProvider>
     </div>
