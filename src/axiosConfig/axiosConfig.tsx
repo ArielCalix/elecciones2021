@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 
 const baseUrls = {
     dev: 'http://localhost:3300/api',
-    produccion: 'http://apielecciones2021.azurewebsites.net/api'
+    produccion: 'https://apielecciones2021.azurewebsites.net/api'
 }
 
 const config: AxiosRequestConfig = {
