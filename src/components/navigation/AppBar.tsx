@@ -1,15 +1,16 @@
-import React, { useState, MouseEvent, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+// MouseEvent
 import {
     AppBar, Toolbar, Grid, Typography,
-    ListItemText, ListItemIcon, List, ListItem, Button, SwipeableDrawer, FormControl, MenuItem, InputLabel, Select
+    FormControl, InputLabel, Select
 } from '@material-ui/core';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import MenuIcon from '@material-ui/icons/Menu';
+// import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+// import MenuIcon from '@material-ui/icons/Menu';MenuItem, ListItemText, ListItemIcon, List, ListItem, Button, SwipeableDrawer,
 import { IUtillities } from "../../helpers/IUtillities";
 import { getData } from "../../helpers/Utillities";
 import { appBarStyles, useStyles } from './styles'
 
-type Anchor = 'top' | 'left' | 'bottom' | 'right';
+// type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 function Bar() {
     const [datos, setDatos] = useState(undefined);
@@ -26,7 +27,7 @@ function Bar() {
         }
         await getData(utils).then(results => {
             console.log(results)
-            let obj = new Array;
+            let obj = [];
             results.forEach(result => {
                 if (result[0] === muni) {
                     obj.push(result[1]);
@@ -44,7 +45,7 @@ function Bar() {
         getData(Utillities).then(result => {
             let str = result[0];
             const splittedValues = str[0].split(',');
-            let obj = new Object()
+            let obj = {};
             splittedValues.forEach(municipio => {
                 const muni = municipio.replace(/ /g, '');
                 obj[muni] = municipio
@@ -56,16 +57,16 @@ function Bar() {
         });
     }, [])
     const classes = appBarStyles();
-    const [anchorEl, setAnchorEl] = useState<boolean>(null);
-    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(prevAnchorEl => !prevAnchorEl);
-    };
-    const handleClose = (event: MouseEvent<HTMLDivElement>) => {
-        setAnchorEl(prevAnchorEl => !prevAnchorEl);
-    }
-    const toggleDrawer = (anchor: Anchor, open: boolean) => () => {
-        setAnchorEl(open);
-    };
+    // const [anchorEl, setAnchorEl] = useState<boolean>(null);
+    // const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    //     setAnchorEl(prevAnchorEl => !prevAnchorEl);
+    // };
+    // const handleClose = (event: MouseEvent<HTMLDivElement>) => {
+    //     setAnchorEl(prevAnchorEl => !prevAnchorEl);
+    // }
+    // const toggleDrawer = (anchor: Anchor, open: boolean) => () => {
+    //     setAnchorEl(open);
+    // };
     const handleChangeMunicipio = (event) => {
         getMers(event.target.value)
         setFormInit({ ...formInit, municipio: event.target.value });

@@ -48,10 +48,10 @@ function App() {
       }
     }
   }
-  const handleLogOut = () => {
-    LogOut();
-    setIsLogin(false)
-  }
+  // const handleLogOut = () => {
+  //   LogOut();
+  //   setIsLogin(false)
+  // }
   return (
     <div className='App'>
       <ThemeProvider theme={theme}>
