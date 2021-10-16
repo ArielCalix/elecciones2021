@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { getData, saveData } from "../../helpers/Utillities";
+import React, { useState, useEffect, useContext } from 'react';
+import { getData, saveData, setStatesLocal } from "../../helpers/Utillities";
 import { IUtillities } from "../../helpers/IUtillities";
 import { Grid, TextField, FormControl, FormControlLabel, Button, Snackbar, Typography } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { constrolsStyles } from "./styles";
 import clsx from "clsx";
+import { NavigationContext } from '../../contexts/navigationContext';
 
 const Utillities: IUtillities = {
     url: '/sheets/get/1uPyojqpBlK_Y1J3xSvkzHfSrTUHIHomgh3MmRlnKm7A/Datos!F:F2'
 }
 
 export default function Presidencial({ formInit }) {
+    const { navigation, setNavigation } = useContext(NavigationContext);
     const classes = constrolsStyles();
     const [datos, setDatos] = useState(undefined);
     const [formData, updateFormData] = useState(undefined)
@@ -37,7 +39,15 @@ export default function Presidencial({ formInit }) {
         Utillities.url = '/sheets/insert/1yiCT30F9jk-_QZoJYDFDPdch8Ne3CSUQjCGwSPCyZuE/Presidencial'
         Utillities.data = { ...formInit, ...formData };
         const result = await saveData(Utillities);
-        (result === 200) ? setSuccess(true) : setError(true);
+        if (result === 200) {
+            const newState = { alcaldes: false, presidentes: true, diputados: false }
+            setSuccess(true)
+            setNavigation(newState)
+            setStatesLocal(newState);
+        }
+        else {
+            setError(true);
+        }
     }
     useEffect(() => {
         Utillities.url = '/sheets/get/1uPyojqpBlK_Y1J3xSvkzHfSrTUHIHomgh3MmRlnKm7A/Presidencial!B2:C17'
@@ -52,30 +62,33 @@ export default function Presidencial({ formInit }) {
             console.error(error);
         });
     }, [])
-    return <Grid container alignItems='center' direction='column'>
-        <Grid container item justifyContent='center' alignItems='center' >
-            {datos && datos.map(dato => {
-                return <FormControl className={clsx(classes.margin, classes.withoutLabel, classes.textField)}>
-                    <FormControlLabel
-                        control={<TextField
-                            onChange={handleChange}
-                            name={`${dato[0]}`}
-                            id='standard-basic'
-                            label={`${dato[0]}-${dato[1]}`}
-                            type='number'
-                            size='medium' className={classes.formControl}
-                            value={updateFormData[dato[0]]} />}
-                        label="" className={classes.formLabel} />
-                </FormControl>
-            })}
-        </Grid>
-        <Grid container item justifyContent='center' alignItems='center' xs={8}>
-            <Button variant="contained" color="primary" type='submit' onClick={handleClickButton} >
-                <Typography variant='button' className={classes.title}>
-                    Guardar
-                </Typography>
-            </Button>
-        </Grid>
+    return <Grid container alignItems='center' direction='column' >
+        {!navigation.presidentes && <React.Fragment>
+            <Grid container item justifyContent='center' alignItems='center' >
+                {datos && datos.map(dato => {
+                    return <FormControl key={dato[0]} className={clsx(classes.margin, classes.withoutLabel, classes.textField)}>
+                        <FormControlLabel
+                            control={<TextField
+                                onChange={handleChange}
+                                name={`${dato[0]}`}
+                                id='standard-basic'
+                                label={`${dato[0]}-${dato[1]}`}
+                                type='number'
+                                size='medium' className={classes.formControl}
+                                value={updateFormData[dato[0]]} />}
+                            label="" className={classes.formLabel} />
+                    </FormControl>
+                })}
+            </Grid>
+            <Grid container item justifyContent='center' alignItems='center' xs={8}>
+                <Button variant="contained" color="primary" type='submit' onClick={handleClickButton} >
+                    <Typography variant='button' className={classes.title}>
+                        Guardar
+                    </Typography>
+                </Button>
+            </Grid>
+        </React.Fragment>
+        }
         <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
             <Alert severity="success">
                 <AlertTitle>Guardado Exitoso</AlertTitle>
@@ -88,5 +101,5 @@ export default function Presidencial({ formInit }) {
                 <strong>Revise los datos ingresados</strong>
             </Alert>
         </Snackbar>
-    </Grid>
+    </Grid >
 }

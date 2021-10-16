@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { getData, saveData } from "../../helpers/Utillities";
+import React, { useState, useEffect, useContext } from 'react';
+import { getData, saveData, setStatesLocal } from "../../helpers/Utillities";
 import { IUtillities } from "../../helpers/IUtillities";
 import {
     Grid, TextField, FormControl, FormControlLabel, Button,
@@ -11,12 +11,14 @@ import clsx from "clsx";
 import { useTheme } from '@material-ui/core/styles';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import { NavigationContext } from '../../contexts/navigationContext';
 
 const Utillities: IUtillities = {
     url: '/sheets/get/1uPyojqpBlK_Y1J3xSvkzHfSrTUHIHomgh3MmRlnKm7A/Datos!F:F2'
 }
 
 export default function Diputados({ formInit }) {
+    const { navigation, setNavigation } = useContext(NavigationContext);
     const [partidos, setPartidos] = useState(undefined);
     const [diputados, setDiputados] = useState(undefined);
     const [formData, updateFormData] = useState(undefined)
@@ -37,7 +39,15 @@ export default function Diputados({ formInit }) {
         Utillities.url = '/sheets/insert/1yiCT30F9jk-_QZoJYDFDPdch8Ne3CSUQjCGwSPCyZuE/Diputados'
         Utillities.data = { ...formInit, ...formData };
         const result = await saveData(Utillities);
-        (result === 200) ? setSuccess(true) : setError(true);
+        if (result === 200) {
+            const newState = { alcaldes: false, presidentes: true, diputados: false }
+            setSuccess(true)
+            setNavigation(newState)
+            setStatesLocal(newState);
+        }
+        else {
+            setError(true);
+        }
     }
     useEffect(() => {
         Utillities.url = '/sheets/get/1uPyojqpBlK_Y1J3xSvkzHfSrTUHIHomgh3MmRlnKm7A/Diputados!A2:G15'
@@ -63,11 +73,15 @@ export default function Diputados({ formInit }) {
         });
     }, [])
     return <Grid container alignItems='center' direction='column'>
-        {!success && <Grid container item justifyContent='center' alignItems='center' >
-            {formData && partidos && diputados && <DiputadosPartidos handleClickButton={handleClickButton} steps={partidos} diputados={diputados}
-                formData={formData} updateFormData={updateFormData}
-            />}
-        </Grid>}
+        {!navigation.diputados &&
+            <React.Fragment>
+                {!success && <Grid container item justifyContent='center' alignItems='center' >
+                    {formData && partidos && diputados && <DiputadosPartidos handleClickButton={handleClickButton} steps={partidos} diputados={diputados}
+                        formData={formData} updateFormData={updateFormData}
+                    />}
+                </Grid>}
+            </React.Fragment>
+        }
         <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
             <Alert severity="success">
                 <AlertTitle>Guardado Exitoso</AlertTitle>

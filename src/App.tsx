@@ -4,18 +4,27 @@ import { Login } from "./components/login/login";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Grid, Backdrop } from '@material-ui/core';
 import { estilos, appStyles } from "./estilos";
-import { getToken, checkUser, LogIn, LogOut } from "./helpers/Utillities";
+import { getToken, checkUser, LogIn, LogOut, getStates } from "./helpers/Utillities";
 import { IUtillities } from "./helpers/IUtillities";
 import { ILoginUserProps } from "./interfaces/ILogin";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { NavigationContext } from './contexts/navigationContext';
+import { isEmpty } from '@microsoft/sp-lodash-subset';
 
 function App() {
   const theme = createTheme(estilos);
   const [isLogin, setIsLogin] = useState(false);
   const [cargando, setCargando] = useState(true);
   const [errorLogin, setErrorLogin] = useState(undefined)
+  const [navigation, setNavigation] = useState(undefined)
   const utilities: IUtillities = { url: '' }
   useEffect(() => {
+    const navs = getStates();
+    (isEmpty(navs)) ? setNavigation({
+      alcaldes: false,
+      presidentes: false,
+      diputados: false
+    }) : setNavigation(navs);
     const hasToken = getToken();
     if (hasToken) {
       const utils: IUtillities = { url: '/usuarios/whoami' }
@@ -54,11 +63,13 @@ function App() {
   }
   return (
     <div className='App'>
-      <ThemeProvider theme={theme}>
-        {(cargando) ? <Cargando></Cargando> :
-          (isLogin) ? <Bar handleLogOut={handleLogOut} /> : <Login handleLogin={handleLogin} isLogin={errorLogin} />
-        }
-      </ThemeProvider>
+      <NavigationContext.Provider value={{ navigation, setNavigation }} >
+        <ThemeProvider theme={theme}>
+          {(cargando) ? <Cargando></Cargando> :
+            (isLogin) ? <Bar handleLogOut={handleLogOut} /> : <Login handleLogin={handleLogin} isLogin={errorLogin} />
+          }
+        </ThemeProvider>
+      </NavigationContext.Provider>
     </div>
   );
 }

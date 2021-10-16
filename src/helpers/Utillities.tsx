@@ -119,6 +119,22 @@ function getToken() {
         return false
     }
 }
+
+function getStates() {
+    const states = localStorage.getItem('States');
+    if (!isEmpty(states)) {
+        states.replaceAll('&', ',');
+        states.replaceAll('=', ':')
+        return JSON.parse(states)
+    } else
+        return undefined
+}
+
+function setStatesLocal(states) {
+    const statesString = JSON.stringify(states);
+    localStorage.setItem('States', statesString);
+}
+
 export {
     getData,
     saveData,
@@ -127,5 +143,7 @@ export {
     LogIn,
     checkUser,
     getToken,
+    getStates,
+    setStatesLocal,
     LogOut
 };
