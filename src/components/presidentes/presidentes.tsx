@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getData, saveData } from "../../helpers/Utillities";
 import { IUtillities } from "../../helpers/IUtillities";
-import { Grid, TextField, FormControl, FormControlLabel, Button, Snackbar } from '@material-ui/core';
+import { Grid, TextField, FormControl, FormControlLabel, Button, Snackbar, Typography } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { constrolsStyles } from "./styles";
 import clsx from "clsx";
@@ -40,7 +40,7 @@ export default function Presidencial({ formInit }) {
         (result === 200) ? setSuccess(true) : setError(true);
     }
     useEffect(() => {
-        Utillities.url = '/sheets/get/1uPyojqpBlK_Y1J3xSvkzHfSrTUHIHomgh3MmRlnKm7A/Datos!H2:I17'
+        Utillities.url = '/sheets/get/1uPyojqpBlK_Y1J3xSvkzHfSrTUHIHomgh3MmRlnKm7A/Presidencial!B2:C17'
         getData(Utillities).then(result => {
             let obj = {}
             result.forEach(item => {
@@ -52,7 +52,7 @@ export default function Presidencial({ formInit }) {
             console.error(error);
         });
     }, [])
-    return <Grid container direction='column'>
+    return <Grid container alignItems='center' direction='column'>
         <Grid container item justifyContent='center' alignItems='center' >
             {datos && datos.map(dato => {
                 return <FormControl className={clsx(classes.margin, classes.withoutLabel, classes.textField)}>
@@ -69,7 +69,13 @@ export default function Presidencial({ formInit }) {
                 </FormControl>
             })}
         </Grid>
-        <Button variant="contained" color="primary" type='submit' onClick={handleClickButton} >Guardar</Button>
+        <Grid container item justifyContent='center' alignItems='center' xs={8}>
+            <Button variant="contained" color="primary" type='submit' onClick={handleClickButton} >
+                <Typography variant='button' className={classes.title}>
+                    Guardar
+                </Typography>
+            </Button>
+        </Grid>
         <Snackbar open={success} autoHideDuration={6000} onClose={handleClose}>
             <Alert severity="success">
                 <AlertTitle>Guardado Exitoso</AlertTitle>

@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(3),
         },
         textField: {
-            width: '50ch',
+            width: '40ch',
         },
         formControl: {
-            width: '50ch'
+            width: '40ch'
         },
         formLabel: {
             margin: theme.spacing(0)
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1,
         },
         imgContainer: {
-            width: '50ch',
+            width: '40ch',
             marginTop: theme.spacing(3),
             textAlign: 'center'
         },

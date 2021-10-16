@@ -24,13 +24,13 @@ const constrolsStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(3),
         },
         textField: {
-            width: '40ch',
+            width: '30ch',
         },
         formControl: {
-            width: '40ch'
+            width: '30ch'
         },
         formSelectControl: {
-            width: '40ch'
+            width: '30ch'
         },
         formLabel: {
             margin: theme.spacing(0)
@@ -42,4 +42,24 @@ const constrolsStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export { presidenciablesStyles, constrolsStyles }
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            width: '100%',
+            color: 'white'
+        },
+        button: {
+            marginRight: theme.spacing(1),
+        },
+        completed: {
+            display: 'inline-block',
+            color: 'white'
+        },
+        instructions: {
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
+        },
+    }),
+);
+
+export { presidenciablesStyles, constrolsStyles, useStyles }

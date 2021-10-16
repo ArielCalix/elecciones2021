@@ -19,8 +19,8 @@ function Bar(props: IAppBarProps) {
     const [keys, setKeys] = useState(undefined)
     const [visibleSelect, setVisible] = useState(true)
     const [formInit, setFormInit] = React.useState({
-        Municipio: '',
-        MER: ''
+        AMunicipio: '',
+        AMER: ''
     });
     const [mers, setMer] = useState([]);
     useEffect(() => {
@@ -55,10 +55,10 @@ function Bar(props: IAppBarProps) {
     }
     const handleChangeMunicipio = (event) => {
         getMers(event.target.value)
-        setFormInit({ ...formInit, Municipio: event.target.value });
+        setFormInit({ ...formInit, AMunicipio: event.target.value });
     };
     const handleChangeMer = (event) => {
-        setFormInit({ ...formInit, MER: event.target.value });
+        setFormInit({ ...formInit, AMER: event.target.value });
         setVisible(false);
     };
     const classes = appBarStyles();
@@ -67,9 +67,14 @@ function Bar(props: IAppBarProps) {
             <AppBar position='static'>
                 <Toolbar >
                     <Typography variant='h6' className={classes.title}>
-                        Sistema Departamental de Transmision de Datos
+                        SIDETRAD
                     </Typography>
-                    <Button color="inherit" onClick={props.handleLogOut}>Cerrar Sesión<PowerSettingsNewIcon className={classes.logOut} /></Button>
+                    <Button color="inherit" onClick={props.handleLogOut}>
+                        <Typography variant='button' className={classes.title}>
+                            Cerrar Sesión
+                        </Typography>
+                        <PowerSettingsNewIcon className={classes.logOut} />
+                    </Button>
                 </Toolbar>
             </AppBar>
             <Grid container alignItems='center' justifyContent='center' direction='column' md>
@@ -89,7 +94,7 @@ function Selects({ datos, mers, keys, handleChangeMunicipio, handleChangeMer, fo
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={formInit.municipio}
+                value={formInit.AMunicipio}
                 onChange={handleChangeMunicipio}
             >
                 {keys && keys.map(key => {
@@ -102,7 +107,7 @@ function Selects({ datos, mers, keys, handleChangeMunicipio, handleChangeMer, fo
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={formInit.mer}
+                value={formInit.AMER}
                 onChange={handleChangeMer}
             >
                 {mers && mers.map(mer => {

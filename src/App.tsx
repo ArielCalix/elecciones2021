@@ -67,7 +67,7 @@ function Cargando() {
   const classes = appStyles();
   return <Backdrop className={classes.backdrop} open={true}>
     <Grid container direction="column" alignItems="center" justifyContent="center" className={classes.root}>
-      <img src="logo.svg" alt="UNICAH" className={classes.img} />
+      <img src="logo512.png" alt="SIDETRAD" className={classes.img} />
       <CircularProgress color="inherit" />
     </Grid>
   </Backdrop>

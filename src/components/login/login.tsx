@@ -49,54 +49,56 @@ function Login(props: ILoginProps) {
         <AppBar position='static'>
             <Toolbar >
                 <Typography variant='h6' className={classes.title}>
-                    Sistema Departamental de Transmision de Datos
+                    Sistema Departamental de Transmision de Datos - SIDETRAD
                 </Typography>
             </Toolbar>
         </AppBar>
-        <Grid container justifyContent="center">
-            <FormGroup>
-                <Grid className={classes.imgContainer}>
-                    {/* <img src="logo.svg" alt="UNICAH" className={classes.img} /> */}
-                </Grid>
-                <FormControl className={clsx(classes.margin, classes.withoutLabel, classes.textField)}>
-                    <FormControlLabel
-                        control={<TextField
-                            onChange={handleChange("idUsuario")}
-                            name='user'
-                            id="outlined-basic"
-                            label="Nombre de Usuario"
-                            variant="outlined"
-                            size='medium'
-                            className={classes.formControl}
-                            value={formData.idUsuario} />}
-                        label="" className={classes.formLabel} />
-                </FormControl>
-                <FormControl className={clsx(classes.margin, classes.withoutLabel, classes.textField)} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                    <OutlinedInput
-                        id="outlined-adornment-password"
-                        type={showPassword ? 'text' : 'password'}
-                        value={formData.passUsuario}
-                        onChange={handleChange('passUsuario')}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                >
-                                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        labelWidth={70}
-                    />
-                </FormControl>
-                <FormControl className={clsx(classes.margin, classes.withoutLabel, classes.textField)}>
-                    <Button variant="contained" color="primary" onClick={() => handleLogin(formData)} type='submit' disabled={btnDisabled}>Login</Button>
-                </FormControl>
-            </FormGroup>
+        <Grid container direction='column'>
+            <Grid className={classes.imgContainer}>
+                {/* <img src="logo.svg" alt="UNICAH" className={classes.img} /> */}
+            </Grid>
+            <Grid container item alignItems='center' justifyContent='center' direction='column'>
+                <FormGroup>
+                    <FormControl className={clsx(classes.margin, classes.withoutLabel, classes.textField)}>
+                        <FormControlLabel
+                            control={<TextField
+                                onChange={handleChange("idUsuario")}
+                                name='user'
+                                id="outlined-basic"
+                                label="Nombre de Usuario"
+                                variant="outlined"
+                                size='medium'
+                                className={classes.formControl}
+                                value={formData.idUsuario} />}
+                            label="" className={classes.formLabel} />
+                    </FormControl>
+                    <FormControl className={clsx(classes.margin, classes.withoutLabel, classes.textField)} variant="outlined">
+                        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                        <OutlinedInput
+                            id="outlined-adornment-password"
+                            type={showPassword ? 'text' : 'password'}
+                            value={formData.passUsuario}
+                            onChange={handleChange('passUsuario')}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            labelWidth={70}
+                        />
+                    </FormControl>
+                    <FormControl className={clsx(classes.margin, classes.withoutLabel, classes.textField)}>
+                        <Button variant="contained" color="primary" onClick={() => handleLogin(formData)} type='submit' disabled={btnDisabled}>Login</Button>
+                    </FormControl>
+                </FormGroup>
+            </Grid>
         </Grid>
         <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
             <Alert severity="error">
