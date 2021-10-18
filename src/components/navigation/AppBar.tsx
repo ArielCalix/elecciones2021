@@ -17,7 +17,6 @@ const Utillities: IUtillities = {
 function Bar(props: IAppBarProps) {
     const [datos, setDatos] = useState(undefined);
     const [keys, setKeys] = useState(undefined)
-    const [visibleSelect, setVisible] = useState(true)
     const [formInit, setFormInit] = React.useState({
         AMunicipio: '',
         AMER: ''
@@ -59,7 +58,6 @@ function Bar(props: IAppBarProps) {
     };
     const handleChangeMer = (event) => {
         setFormInit({ ...formInit, AMER: event.target.value });
-        setVisible(false);
     };
     const classes = appBarStyles();
     return (
@@ -68,6 +66,9 @@ function Bar(props: IAppBarProps) {
                 <Toolbar >
                     <Typography variant='h6' className={classes.title}>
                         SIDETRAD
+                    </Typography>
+                    <Typography variant='caption' className={classes.title}>
+                        Ingresando datos para Municipio: {formInit.AMunicipio} - JVR: {formInit.AMER}
                     </Typography>
                     <Button color="inherit" onClick={props.handleLogOut}>
                         <Typography variant='button' className={classes.title}>
@@ -78,8 +79,8 @@ function Bar(props: IAppBarProps) {
                 </Toolbar>
             </AppBar>
             <Grid container alignItems='center' justifyContent='center' direction='column' md>
-                {visibleSelect && <Selects datos={datos} mers={mers} keys={keys} handleChangeMunicipio={handleChangeMunicipio}
-                    handleChangeMer={handleChangeMer} formInit={formInit}></Selects>}
+                <Selects datos={datos} mers={mers} keys={keys} handleChangeMunicipio={handleChangeMunicipio}
+                    handleChangeMer={handleChangeMer} formInit={formInit}></Selects>
                 <TabsLevels formInit={formInit}></TabsLevels>
             </Grid>
         </React.Fragment>
@@ -102,8 +103,8 @@ function Selects({ datos, mers, keys, handleChangeMunicipio, handleChangeMer, fo
                 })}
             </Select>
         </FormControl>
-        <FormControl className={styles.formControl}>
-            <InputLabel id="demo-simple-select-label">MER</InputLabel>
+        {formInit.AMunicipio && <FormControl className={styles.formControl}>
+            <InputLabel id="demo-simple-select-label">JRV</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -114,7 +115,7 @@ function Selects({ datos, mers, keys, handleChangeMunicipio, handleChangeMer, fo
                     return <option key={mer} value={mer}>{mer}</option>
                 })}
             </Select>
-        </FormControl>
+        </FormControl>}
     </Grid>
 }
 
