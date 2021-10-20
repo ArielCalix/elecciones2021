@@ -6,7 +6,7 @@ const baseUrls = {
 }
 
 const config: AxiosRequestConfig = {
-    baseURL: baseUrls.produccion,
+    baseURL: baseUrls.dev,
     headers: {
         'content-type': 'application/json',
         "Access-Control-Allow-Origin": "*",

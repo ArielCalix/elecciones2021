@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { getData, saveData, setStatesLocal } from "../../helpers/Utillities";
+import { getData, saveData } from "../../helpers/Utillities";
 import { IUtillities } from "../../helpers/IUtillities";
 import {
     Grid, TextField, FormControl, FormControlLabel, Button,
     Snackbar, Typography, MobileStepper
 } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import { constrolsStyles, useStyles } from "./styles";
+import { useStyles } from "./styles";
+import { constrolsStyles } from "../commons/styles";
 import clsx from "clsx";
 import { useTheme } from '@material-ui/core/styles';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -38,9 +39,7 @@ export default function Diputados({ formInit }) {
         Utillities.data = { ...formInit, ...formData };
         const result = await saveData(Utillities);
         if (result === 200) {
-            const newState = { alcaldes: false, presidentes: true, diputados: false }
             setSuccess(true)
-            setStatesLocal(newState);
         }
         else {
             setError(true);
@@ -137,7 +136,7 @@ function DiputadosPartidos({ steps, diputados, formData, updateFormData, handleC
         setCompleted({});
     };
     return (
-        <Grid container justifyContent='center' alignItems='center' className={classes.root} spacing={1} xs={12} md={8}>
+        <Grid container item justifyContent='center' alignItems='center' className={classes.root} spacing={1} xs={12} md={8}>
             <Grid container item>
                 {allStepsCompleted() ? (
                     <div>

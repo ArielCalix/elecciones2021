@@ -11,35 +11,4 @@ const presidenciablesStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const constrolsStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            display: 'flex',
-            flexWrap: 'wrap',
-        },
-        margin: {
-            margin: theme.spacing(1),
-        },
-        withoutLabel: {
-            marginTop: theme.spacing(3),
-        },
-        textField: {
-            width: '40ch',
-        },
-        formControl: {
-            width: '40ch'
-        },
-        formSelectControl: {
-            width: '40ch'
-        },
-        formLabel: {
-            margin: theme.spacing(0)
-        },
-        title: {
-            textAlign: 'left',
-            flexGrow: 1,
-        },
-    }),
-);
-
-export { presidenciablesStyles, constrolsStyles }
+export { presidenciablesStyles }

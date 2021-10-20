@@ -78,7 +78,7 @@ function Bar(props: IAppBarProps) {
                     </Button>
                 </Toolbar>
             </AppBar>
-            <Grid container alignItems='center' justifyContent='center' direction='column' md>
+            <Grid container item alignItems='center' justifyContent='center' direction='column' md>
                 <Selects datos={datos} mers={mers} keys={keys} handleChangeMunicipio={handleChangeMunicipio}
                     handleChangeMer={handleChangeMer} formInit={formInit}></Selects>
                 <TabsLevels formInit={formInit}></TabsLevels>

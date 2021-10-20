@@ -6,6 +6,7 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import Presidencial from "../presidentes/presidentes";
 import Diputados from "../diputados/diputados";
+import Alcaldes from '../alcaldes/alcaldes';
 
 export default function TabsLevels({ formInit }) {
     const [value, setValue] = React.useState(0);
@@ -34,13 +35,13 @@ export default function TabsLevels({ formInit }) {
         </Tabs>
         <Grid container alignItems='center' justifyContent='center' >
             <TabPanel value={value} index={0}>
-                <Diputados formInit={formInit}/>
+                <Diputados formInit={formInit} />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <Presidencial formInit={formInit} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Alcaldes
+                <Alcaldes formInit={formInit} ></Alcaldes>
             </TabPanel>
         </Grid>
     </React.Fragment>

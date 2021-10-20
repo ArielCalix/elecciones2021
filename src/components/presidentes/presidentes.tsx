@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { getData, saveData, setStatesLocal } from "../../helpers/Utillities";
+import { getData, saveData } from "../../helpers/Utillities";
 import { IUtillities } from "../../helpers/IUtillities";
 import { Grid, TextField, FormControl, FormControlLabel, Button, Snackbar, Typography } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab'
-import { constrolsStyles } from "./styles";
+import { constrolsStyles } from "../commons/styles";
 import clsx from "clsx";
 
 const Utillities: IUtillities = {
@@ -12,7 +12,7 @@ const Utillities: IUtillities = {
 
 export default function Presidencial({ formInit }) {
     const classes = constrolsStyles();
-    const [datos, setDatos] = useState(undefined);
+    const [presidentes, setPresidentes] = useState(undefined);
     const [formData, updateFormData] = useState(undefined)
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
@@ -38,9 +38,7 @@ export default function Presidencial({ formInit }) {
         Utillities.data = { ...formInit, ...formData };
         const result = await saveData(Utillities);
         if (result === 200) {
-            const newState = { alcaldes: false, presidentes: true, diputados: false }
             setSuccess(true)
-            setStatesLocal(newState);
         }
         else {
             setError(true);
@@ -53,7 +51,7 @@ export default function Presidencial({ formInit }) {
             result.forEach(item => {
                 obj[item[0]] = 0
             })
-            setDatos(result);
+            setPresidentes(result);
             updateFormData(obj);
         }).catch(error => {
             console.error(error);
@@ -61,17 +59,17 @@ export default function Presidencial({ formInit }) {
     }, [])
     return <Grid container alignItems='center' direction='column' >
         <Grid container item justifyContent='center' alignItems='center' >
-            {datos && datos.map(dato => {
-                return <FormControl key={dato[0]} className={clsx(classes.margin, classes.withoutLabel, classes.textField)}>
+            {formData && presidentes && presidentes.map(presidente => {
+                return <FormControl key={presidente[0]} className={clsx(classes.margin, classes.withoutLabel, classes.textField)}>
                     <FormControlLabel
                         control={<TextField
                             onChange={handleChange}
-                            name={`${dato[0]}`}
+                            name={`${presidente[0]}`}
                             id='standard-basic'
-                            label={`${dato[0]}-${dato[1]}`}
+                            label={`${presidente[0]}-${presidente[1]}`}
                             type='number'
                             size='medium' className={classes.formControl}
-                            value={updateFormData[dato[0]]} />}
+                            value={formData[presidente[0]]} />}
                         label="" className={classes.formLabel} />
                 </FormControl>
             })}
